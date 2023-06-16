@@ -1,0 +1,32 @@
+firebase_credentials
+testUploadedFiles
+gcp_configuration.sh
+personal_access_token_github.txt
+local_test_files
+cover.out
+
+# IDE's:
+.idea
+.vscode
+
+# Secrets:
+.creds
+
+# Firebase generated files
+.firebaserc
+firebase.json
+
+# enviromental variables
+.env.*
+*.env
+
+# terraform state file lock file
+*.terraform.lock.hcl
+.terraform
+*.tfstate
+*.tfstate.backup
+
+*.tmpFile.*
+infrastruactures/terraform/*.json
+infrastruactures/terraform/raven-infra
+tmp_operator.sh
