@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name = "${lower(var.company)}-tfstate-rg"
-    storage_account_name = "${lower(var.company)}tf${random_string.tf-name.result}"
+    resource_group_name = "kopicloud-tfstate-rg"
+    storage_account_name = "kopicloudiactest"
     container_name = "core-tfstate"
     key = "actions.tfstate"
   }
