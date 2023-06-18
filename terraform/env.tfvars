@@ -1,3 +1,0 @@
-company = "kopicloud"
-
-environment = "production"

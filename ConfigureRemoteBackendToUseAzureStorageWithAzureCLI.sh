@@ -1,29 +1,32 @@
-RESOURCE_GROUP_NAME=kopicloud-tfstate-rg
-STORAGE_ACCOUNT_NAME=kopicloudtfstate$RANDOM
-CONTAINER_NAME=tfstate
+#!/bin/bash
 
 # Create resource group
-az group create --name $RESOURCE_GROUP_NAME --location "Norway East"
+az group create \
+  --name "$AZURE_RESOURCE_GROUP_FOR_TERRAFORM_STATE" \
+  --location "Norway East"
 
 # Create storage group
 az storage account create \
-  --resource-group $RESOURCE_GROUP_NAME \
-  --name $STORAGE_ACCOUNT_NAME \
+  --resource-group "$AZURE_RESOURCE_GROUP_FOR_TERRAFORM_STATE" \
+  --name "$AZURE_STORAGE_ACCOUNT_FOR_TERRAFORM_STATE" \
   --sku Standard_LRS \
   --encryption-services blob
 
-# Get storage account key
-ACCOUNT_KEY=$(az storage account keys list \
-                --resource-group $RESOURCE_GROUP_NAME \
-                --account-name $STORAGE_ACCOUNT_NAME \
-                --query [0].value -o tsv)
-
 # Create blob container
 az storage container create \
-  --name $CONTAINER_NAME \
-  --account-name $STORAGE_ACCOUNT_NAME \
-  --account-key $ACCOUNT_KEY
+  --name "$AZURE_BLOB_CONTAINER_NAME_FOR_TERRAFORM_STATE" \
+  --account-name "$AZURE_STORAGE_ACCOUNT_FOR_TERRAFORM_STATE"
 
-echo "storage_account_name: $STORAGE_ACCOUNT_NAME"
-echo "container_name: $CONTAINER_NAME"
-echo "access_key: $ACCOUNT_KEY"
+# Get the storage access key
+ACCOUNT_KEY=$(
+  az storage account keys list \
+    --resource-group "$AZURE_RESOURCE_GROUP_FOR_TERRAFORM_STATE" \
+    --account-name "$AZURE_STORAGE_ACCOUNT_FOR_TERRAFORM_STATE" \
+    --query '[0].value' -o tsv
+  )
+
+export ARM_ACCESS_KEY=$ACCOUNT_KEY
+
+
+echo "storage_account_name: $AZURE_STORAGE_ACCOUNT_FOR_TERRAFORM_STATE"
+echo "container_name: $AZURE_BLOB_CONTAINER_NAME_FOR_TERRAFORM_STATE"
