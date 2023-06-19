@@ -16,7 +16,7 @@ jobs:
 #    if: github.event_name == 'pull_request'
 #        && github.event.action == 'closed'
 #        && github.event.pull_request.merged == true
-    if: ${{ github.event.pull_request.merged }}
+#    if: ${{ github.event.pull_request.merged }}
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
