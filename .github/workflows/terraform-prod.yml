@@ -1,11 +1,9 @@
-name: 'Terraform'
+name: 'Terraform-Prod'
 
 on:
   push:
     branches:
     - main
-  pull_request:
-  workflow_dispatch:
   
 permissions:
   contents: read
@@ -13,6 +11,10 @@ permissions:
 jobs:
   terraform:
     name: 'Terraform'
+    # The job will be implemented when a PR is merge to main branch.
+    if: github.event_name == 'pull_request' 
+        && github.event.action == 'closed' 
+        && github.event.pull_request.merged == true
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
