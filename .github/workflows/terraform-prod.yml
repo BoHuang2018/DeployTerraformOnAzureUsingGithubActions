@@ -1,10 +1,9 @@
 name: 'Terraform-Prod'
 run-name: ${{ github.actor }} is running workflow Terraform-Prod
 on:
-  pull_request:
-    branches: [ main ]
-  merge_group:
-    branches: [ main ]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
