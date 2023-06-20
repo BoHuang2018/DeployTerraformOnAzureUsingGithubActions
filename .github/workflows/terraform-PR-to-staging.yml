@@ -44,6 +44,7 @@ jobs:
         run: terraform init -backend=false
 
       # Validate the tf files in folder ./terraform
+      # Only to test again
       - name: Terraform Validation
         working-directory: ./terraform
         run: terraform validate
