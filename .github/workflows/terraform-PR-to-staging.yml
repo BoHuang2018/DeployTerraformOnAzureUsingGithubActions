@@ -6,6 +6,7 @@ on:
     types:
       - opened
       - edited
+      - synchronize
     branches:
       - staging
 
