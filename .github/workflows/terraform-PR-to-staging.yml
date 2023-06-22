@@ -49,3 +49,5 @@ jobs:
       - name: Terraform Validation
         working-directory: ./terraform
         run: terraform validate
+
+      # TODO: should deploy to the tenant behind branch staging
