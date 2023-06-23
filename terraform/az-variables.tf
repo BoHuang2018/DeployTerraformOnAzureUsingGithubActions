@@ -11,7 +11,7 @@ variable "container_registry_name_prod" {
 }
 
 variable "container_registry_name_staging" {
-  default = "simpleAppImages_staging_test"
+  default = "simpleAppImagesStagingTest"
 }
 
 variable "admin_username" {
