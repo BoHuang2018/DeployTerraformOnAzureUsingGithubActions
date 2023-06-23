@@ -3,7 +3,7 @@ resource "azurerm_kubernetes_cluster" "k8s_staging" {
   name                = var.app_name
   resource_group_name = azurerm_resource_group.coop-interview-staging.name
   dns_prefix          = var.app_name
-  kubernetes_version  = "1.27.3"
+  kubernetes_version  = "1.25"
 
   identity {
     type = "SystemAssigned"
