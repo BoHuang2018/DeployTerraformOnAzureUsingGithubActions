@@ -1,18 +1,17 @@
-name: 'Terraform-PR-to-Staging'
-run-name: Terraform format and validation check in PR to branch staging.
+name: 'Terraform-Staging'
+run-name: ${{ github.actor }} is deploying to Azure Staging Environment.
 
 on:
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
+  push:
     branches:
       - staging
 
+permissions:
+  contents: read
+
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform-Deployment-Staging'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -31,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Install the lastest version of Terraform CLI and configure the Terraform CLI configuration file with
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with
       # a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -44,10 +43,12 @@ jobs:
         working-directory: ./terraform
         run: terraform init -backend=false
 
-      # Validate the tf files in folder ./terraform
-      # Only to test again
-      - name: Terraform Validation
+      # Generate an execution plan for Terraform
+      - name: Terraform Plan
         working-directory: ./terraform
-        run: terraform validate
+        run: terraform plan -input=false
 
-      # TODO: should deploy to the tenant behind branch staging
+      # Apply Terraform changes
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve -input=false
