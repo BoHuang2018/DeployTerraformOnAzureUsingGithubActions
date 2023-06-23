@@ -13,9 +13,3 @@ variable "container_registry_name" {
 variable "admin_username" {
   default = "simpleApp_admin"
 }
-
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "app_version" {} # 1.0
