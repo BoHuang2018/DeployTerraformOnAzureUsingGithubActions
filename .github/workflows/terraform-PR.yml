@@ -1,53 +1,49 @@
-name: 'Terraform-Prod'
-run-name: ${{ github.actor }} is deploying to Azure Prod Environment.
-on:
-  push:
-    branches:
-      - main
+name: 'Terraform-PR-to-Staging'
+run-name: Terraform format and validation check in PR to branch staging.
 
-permissions:
-  contents: read
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
 
 jobs:
   terraform:
-    name: 'Terraform-Deployment-Prod'
+    name: 'Terraform-fmt-validate'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID_DEFAULT }}
     runs-on: ubuntu-latest
-    environment: production
-    
+    environment: staging
+
     # use the bash shell regardless of the Github Actions runner is unbuntu/macos/windows
-    defaults: 
+    defaults:
       run:
         shell: bash
-        
+
     steps:
       # Checkout the repository to the Github Actions runner
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
 
-      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with
+      # Install the lastest version of Terraform CLI and configure the Terraform CLI configuration file with
       # a Terraform Cloud user API token
-      - name: Setup Terraform  
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      # Initialize a new or existing Terraform working directory by creating initial files, 
+      # Initialize a new or existing Terraform working directory by creating initial files,
       # loading any remote state, downloading modules, etc.
       - name: Terraform Init
         working-directory: ./terraform
         run: terraform init -backend=false
 
-      # Generate an execution plan for Terraform
-      - name: Terraform Plan
+      # Validate the tf files in folder ./terraform
+      # Only to test again
+      - name: Terraform Validation
         working-directory: ./terraform
-        run: terraform plan -input=false
-
-      # Apply Terraform changes
-      - name: Terraform Apply
-        working-directory: ./terraform
-        run: terraform apply -auto-approve -input=false
+        run: terraform validate
