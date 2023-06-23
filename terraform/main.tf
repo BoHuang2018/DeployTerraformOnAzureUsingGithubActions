@@ -4,6 +4,18 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.61.0"
     }
+    azapi = {
+      source  = "azure/azapi"
+      version = "1.5"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.0"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "terraform_state_rg" # value of AZURE_RESOURCE_GROUP_FOR_TERRAFORM_STATE in ../.env
