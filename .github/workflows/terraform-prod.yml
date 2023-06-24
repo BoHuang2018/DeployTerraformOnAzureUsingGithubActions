@@ -52,7 +52,7 @@ jobs:
       # Generate an execution plan for Terraform
       - name: Terraform Plan
         working-directory: ./terraform-prod
-        run: terraform plan -lock=false -input=false -no-color
+        run: terraform plan -lock=false
 
       # Apply Terraform changes
       - name: Terraform Apply
