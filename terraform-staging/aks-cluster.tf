@@ -18,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "k8s_staging" {
   linux_profile {
     admin_username = var.admin_username
     ssh_key {
-      key_data = jsondecode(azapi_resource_action.ssh_public_key_gen_staging.output).publicKey
+      key_data = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
     }
   }
 
