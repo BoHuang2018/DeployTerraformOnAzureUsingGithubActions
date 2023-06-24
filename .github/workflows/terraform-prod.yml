@@ -47,15 +47,15 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, 
       # loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        working-directory: ./terraform
+        working-directory: ./terraform-prod
         run: terraform init
 
       # Generate an execution plan for Terraform
       - name: Terraform Plan
-        working-directory: ./terraform
+        working-directory: ./terraform-prod
         run: terraform plan -input=false
 
       # Apply Terraform changes
       - name: Terraform Apply
-        working-directory: ./terraform
+        working-directory: ./terraform-prod
         run: terraform apply -auto-approve -input=false
