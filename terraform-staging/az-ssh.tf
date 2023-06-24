@@ -10,7 +10,7 @@ resource "azapi_resource" "ssh_public_key_staging" {
   parent_id = azurerm_resource_group.coop-interview-staging.id
 }
 
-resource "azapi_resource_action" "ssh_public_key_gen" {
+resource "azapi_resource_action" "ssh_public_key_gen_staging" {
   type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
   resource_id = azapi_resource.ssh_public_key_staging.id
   action      = "generateKeyPair"

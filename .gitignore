@@ -20,7 +20,7 @@ firebase.json
 .env.*
 *.env
 
-# terraform state file lock file
+# terraform-staging state file lock file
 *.terraform.lock.hcl
 .terraform
 *.tfstate
