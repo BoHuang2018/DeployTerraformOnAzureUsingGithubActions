@@ -9,7 +9,7 @@ on:
       - terraform-staging/**
   pull_request:
     branches:
-      - main
+      - staging
     paths:
       - terraform-staging/**
 
