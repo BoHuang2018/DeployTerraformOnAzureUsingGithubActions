@@ -3,7 +3,7 @@ resource "random_pet" "ssh_key_name" {
   separator = ""
 }
 
-resource "azapi_resource" "ssh_public_key_staging" {
+resource "azapi_resource" "ssh_public_key" {
   type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
   name      = random_pet.ssh_key_name.id
   location  = var.location
@@ -12,7 +12,7 @@ resource "azapi_resource" "ssh_public_key_staging" {
 
 resource "azapi_resource_action" "ssh_public_key_gen" {
   type        = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  resource_id = azapi_resource.ssh_public_key_staging.id
+  resource_id = azapi_resource.ssh_public_key.id
   action      = "generateKeyPair"
   method      = "POST"
 
@@ -20,6 +20,6 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
 }
 
 output "key_data" {
-  value     = azapi_resource.ssh_public_key_staging.body
+  value     = azapi_resource.ssh_public_key.body
   sensitive = true
 }

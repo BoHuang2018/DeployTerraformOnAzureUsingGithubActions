@@ -31,11 +31,6 @@ provider "azurerm" {
   use_oidc = true
 }
 
-resource "azurerm_resource_group" "coop-interview-prod" {
-  location = "Norway East"
-  name     = "coop-interview-prod"
-}
-
 resource "azurerm_resource_group" "coop-interview-staging" {
   location = "Norway East"
   name     = "coop-interview-staging"

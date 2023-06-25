@@ -4,21 +4,28 @@ on:
   push:
     branches:
       - main
+    paths:
+      - terraform-prod/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - terraform-prod/**
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   terraform:
     name: 'Terraform-Deployment-Prod'
     env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_PROD }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_PROD }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID_PROD }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID_DEFAULT }}
     runs-on: ubuntu-latest
-    environment: production
-    
+
     # use the bash shell regardless of the Github Actions runner is unbuntu/macos/windows
     defaults: 
       run:
@@ -34,20 +41,21 @@ jobs:
       - name: Setup Terraform  
         uses: hashicorp/setup-terraform@v2
         with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN_PROD }}
 
       # Initialize a new or existing Terraform working directory by creating initial files, 
       # loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        working-directory: ./terraform
+        working-directory: ./terraform-prod
         run: terraform init
 
       # Generate an execution plan for Terraform
       - name: Terraform Plan
-        working-directory: ./terraform
+        working-directory: ./terraform-prod
         run: terraform plan -input=false
 
       # Apply Terraform changes
       - name: Terraform Apply
-        working-directory: ./terraform
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        working-directory: ./terraform-prod
         run: terraform apply -auto-approve -input=false
