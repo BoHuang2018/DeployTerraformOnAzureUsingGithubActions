@@ -1,4 +1,4 @@
-terraform {  # staging environment has been destroyed
+terraform {  # staging environment has been destroyed.
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
