@@ -60,4 +60,4 @@ jobs:
       - name: Terraform Apply Destroy
         if: github.ref == 'refs/heads/destroy-prod' && github.event_name == 'push'
         working-directory: ./terraform-prod
-        run: terraform apply -destroy
+        run: terraform apply -destroy -auto-approve
