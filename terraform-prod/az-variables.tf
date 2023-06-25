@@ -1,5 +1,5 @@
 variable "app_name" {
-  default = "simpleApp"
+  default = "simpleAppProd"
 }
 
 variable "location" {
