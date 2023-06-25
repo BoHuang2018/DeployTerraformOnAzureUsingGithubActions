@@ -22,7 +22,7 @@ terraform {
     resource_group_name  = "terraform_state_prod_rg" # value of AZURE_RESOURCE_GROUP_FOR_TERRAFORM_STATE in ../.env
     storage_account_name = "tfstate19015prod"        # value of AZURE_STORAGE_ACCOUNT_FOR_TERRAFORM_STATE in ../.env
     container_name       = "tfstatebcprod"           # value of AZURE_BLOB_CONTAINER_NAME_FOR_TERRAFORM_STATE in ../.env
-    key                  = "terraform.tfstate"
+    key                  = "terraform_prod.tfstate"
     use_oidc             = true
   }
 }
