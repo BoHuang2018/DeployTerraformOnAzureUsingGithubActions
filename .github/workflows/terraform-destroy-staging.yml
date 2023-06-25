@@ -1,5 +1,5 @@
-name: 'Terraform-Staging'
-run-name: ${{ github.actor }} is deploying to Azure Staging Environment.
+name: 'Terraform-Destroy-Staging'
+run-name: ${{ github.actor }} is destroying Azure Staging Environment.
 
 on:
   push:
@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform-Deployment-Staging'
+    name: 'Terraform-Destroy-Staging'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -58,6 +58,6 @@ jobs:
 
       # Apply Terraform changes
       - name: Terraform Apply Destroy
-        if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-staging' && github.event_name == 'push'
         working-directory: ./terraform-staging
         run: terraform apply -destroy
