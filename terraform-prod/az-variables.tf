@@ -7,7 +7,7 @@ variable "location" {
 }
 
 variable "container_registry_name_prod" {
-  default = "simpleAppImagesStagingTest"
+  default = "simpleAppImagesProd"
 }
 
 variable "admin_username" {
