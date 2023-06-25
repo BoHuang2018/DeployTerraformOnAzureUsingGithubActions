@@ -1,4 +1,4 @@
-terraform { # Prod environment has been destroyed.
+terraform { # prod environment has been destroyed
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
