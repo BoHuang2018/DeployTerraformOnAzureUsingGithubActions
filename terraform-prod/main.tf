@@ -28,12 +28,15 @@ terraform {
 }
 
 provider "azurerm" {
+  alias = "prod"
   subscription_id = "68a1244e-a9df-43d4-8bc0-07e0973ae35b"
+  skip_provider_registration = "true"
   features {}
   use_oidc = true
 }
 
 resource "azurerm_resource_group" "coop-interview-prod" {
+  provider = azurerm.prod
   location = "Norway East"
   name     = "coop-interview-prod"
 }

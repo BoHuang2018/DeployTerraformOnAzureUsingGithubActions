@@ -7,3 +7,4 @@
 terraform.tfplan
 terraform.tfstate.backup
 plan.out
+credential.*
