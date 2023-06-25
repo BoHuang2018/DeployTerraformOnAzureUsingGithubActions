@@ -55,9 +55,9 @@ In the file `ConfigureRemoteBackendToUseAzureStorageWithAzureCLI.sh`, the blocks
 The created container will be the "remote backend" storing a `terraform.tfstate` file.
 
 ### 3.2 PR to Branch Staging
-Opening a PR to branch `staging`, committing to the PR, triggers a workflow to run `terraform plan`.
+Opening a PR including editing on folder `terraform-staging` to branch `staging`, committing to the PR, triggers a workflow to run `terraform plan`.
 Merging the PR to branch `staging`, triggers `terraform apply` to do the planned building on Azure subscription for staging environment.
 
 ### 3.3 PR tp Branch Main
-Opening a PR to branch `main`, committing to the PR, triggers a workflow to run `terraform plan`.
+Opening a PR including editing on folder `terraform-prod` to branch `main`, committing to the PR, triggers a workflow to run `terraform plan`.
 Merging the PR to branch `main`, triggers `terraform apply` to do the planned building on Azure subscription for prod environment.
