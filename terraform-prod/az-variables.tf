@@ -6,7 +6,7 @@ variable "location" {
   default = "Norway East"
 }
 
-variable "container_registry_name_staging" {
+variable "container_registry_name_prod" {
   default = "simpleAppImagesStagingTest"
 }
 
