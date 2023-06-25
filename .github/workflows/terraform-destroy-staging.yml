@@ -60,4 +60,4 @@ jobs:
       - name: Terraform Apply Destroy
         if: github.ref == 'refs/heads/destroy-staging' && github.event_name == 'push'
         working-directory: ./terraform-staging
-        run: terraform apply -destroy
+        run: terraform destroy -force
